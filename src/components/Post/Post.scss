@@ -1,0 +1,19 @@
+.post {
+  max-width: 600px;
+  margin: 5px auto;
+  padding: 5px;
+  background: #fff;
+  border-radius: 2px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  .header {
+    h1 {
+      margin: 0;
+    }
+  }
+  .footer {
+    .button-group {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+}

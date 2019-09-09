@@ -1,26 +1,41 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { connect } from 'react-redux';
+import { getPosts } from './actions/index';
+import Post from './components/Post/Post';
+import Clock from './components/Clock/Clock';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import './App.scss';
+
+class App extends React.Component {
+  // This constructor can be omitted
+  // constructor(props) {
+  //   super(props);
+  // }
+  getPosts = () => {
+    this.props.getPosts();
+  }
+  componentDidMount () {
+    this.getPosts();
+  }
+  render () {
+    const { posts } = this.props;
+    return (
+      <main>
+        <div className='clock-container'>
+          <Clock />
+        </div>
+        <div className='posts-container'>
+          { posts.length > 0 ? (posts.map(post => <Post key={post.id} title={post.title}>{post.body}</Post>)) : (<p>There are no posts.</p>) }
+        </div>
+      </main>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    posts: state.posts
+  }
+}
+
+export default connect(mapStateToProps, { getPosts })(App);
